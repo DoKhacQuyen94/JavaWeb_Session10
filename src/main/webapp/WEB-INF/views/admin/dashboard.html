@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{common/fragments :: head('Admin Dashboard')}"></head>
+<body class="bg-light">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar Fragment -->
+            <div th:replace="~{common/fragments :: admin-sidebar}"></div>
+
+            <!-- Main Content -->
+            <main class="col-md-10 ms-sm-auto px-md-4 py-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Bảng Điều Khiển Quản Trị</h1>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-md-4 mb-4">
+                        <div class="card border-0 shadow-sm bg-primary text-white h-100">
+                            <div class="card-body py-4">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="text-uppercase mb-2">Tổng thiết bị</h6>
+                                        <h2 class="display-4 fw-bold mb-0" th:text="${itemCount}">0</h2>
+                                    </div>
+                                    <i class="bi bi-laptop display-4 opacity-50"></i>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent border-0">
+                                <a th:href="@{/admin/items}" class="text-white text-decoration-none small">Xem chi tiết <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card border-0 shadow-sm bg-warning text-dark h-100">
+                            <div class="card-body py-4">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="text-uppercase mb-2">Yêu cầu mượn</h6>
+                                        <h2 class="display-4 fw-bold mb-0" th:text="${requestCount}">0</h2>
+                                    </div>
+                                    <i class="bi bi-file-earmark-text display-4 opacity-50"></i>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent border-0">
+                                <a th:href="@{/admin/requests}" class="text-dark text-decoration-none small">Xem danh sách <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card border-0 shadow-sm bg-success text-white h-100">
+                            <div class="card-body py-4">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="text-uppercase mb-2">Trạng thái</h6>
+                                        <h2 class="h3 fw-bold mb-0 mt-3">Hệ thống OK</h2>
+                                    </div>
+                                    <i class="bi bi-check-circle display-4 opacity-50"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card border-0 shadow-sm mt-4">
+                    <div class="card-body py-5 text-center">
+                        <img src="https://ptit.edu.vn/wp-content/uploads/2020/02/Logo-PTIT.png" alt="Logo" style="max-height: 100px; opacity: 0.5;">
+                        <h4 class="text-muted mt-4">Chào mừng bạn đến với Hệ thống Quản lý Lab</h4>
+                        <p class="text-muted">Sử dụng thanh bên để quản lý thiết bị và các yêu cầu mượn từ sinh viên.</p>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div th:replace="~{common/fragments :: scripts}"></div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{common/fragments :: head('Quản lý thiết bị')}"></head>
+<body class="bg-light">
+    <div class="container-fluid">
+        <div class="row">
+            <div th:replace="~{common/fragments :: admin-sidebar}"></div>
+
+            <main class="col-md-10 ms-sm-auto px-md-4 py-4">
+                <div class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h2 th:text="${item.id == 0 ? 'Thêm thiết bị mới' : 'Sửa thiết bị'}"></h2>
+                    <a th:href="@{/admin/items}" class="btn btn-outline-secondary btn-sm">Quay lại danh sách</a>
+                </div>
+
+                <div class="card border-0 shadow-sm mt-4">
+                    <div class="card-body p-4">
+                        <form th:action="@{/admin/items/save}" th:object="${item}" method="post" enctype="multipart/form-data">
+                            <input type="hidden" th:field="*{id}">
+                            <!-- Giữ lại URL ảnh cũ nếu không thay đổi -->
+                            <input type="hidden" th:field="*{imageUrl}">
+
+                            <div class="row g-3">
+                                <div class="col-md-8">
+                                    <label class="form-label fw-bold">Tên thiết bị/Phòng Lab</label>
+                                    <input type="text" th:field="*{name}" class="form-control" required placeholder="VD: Màn hình Dell 24 inch">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Loại thiết bị</label>
+                                    <select th:field="*{type}" class="form-select" required>
+                                        <option value="EQUIPMENT">EQUIPMENT - Thiết bị</option>
+                                        <option value="LAB_ROOM">LAB_ROOM - Phòng Lab</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Số lượng tồn kho</label>
+                                    <input type="number" th:field="*{stock}" class="form-control" min="0" required>
+                                </div>
+
+                                <div class="col-md-8">
+                                    <label class="form-label fw-bold">Tải lên hình ảnh</label>
+                                    <input type="file" name="imageFile" class="form-control" accept="image/*">
+                                    <div class="mt-2" th:if="${item.imageUrl}">
+                                        <small class="text-muted">Ảnh hiện tại: </small>
+                                        <img th:src="@{'/uploads/' + ${item.imageUrl}}" style="height: 50px;" class="rounded shadow-sm">
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <label class="form-label fw-bold">Mô tả thiết bị</label>
+                                    <textarea th:field="*{description}" class="form-control" rows="4" placeholder="Nhập mô tả chi tiết..."></textarea>
+                                </div>
+                            </div>
+
+                            <div class="mt-4 pt-3 border-top text-end">
+                                <a th:href="@{/admin/items}" class="btn btn-light px-4 me-2">Hủy bỏ</a>
+                                <button type="submit" class="btn btn-primary px-5 fw-bold">
+                                    <i class="bi bi-save me-2"></i> Lưu thay đổi
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <div th:replace="~{common/fragments :: scripts}"></div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{common/fragments :: head('Danh mục thiết bị')}"></head>
+<body class="bg-light">
+
+<div th:replace="~{common/fragments :: student-nav}"></div>
+
+<div class="container">
+    <div th:if="${successMsg}" class="alert alert-success alert-dismissible fade show shadow-sm mb-4" role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i>
+        <strong th:text="${successMsg}"></strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="bi bi-list-task me-2 text-primary"></i>Danh mục thiết bị & Phòng Lab</h2>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-4" th:each="item : ${items}">
+            <div class="card h-100 shadow-sm item-card border-0">
+                <!-- Phần hiển thị ảnh -->
+                <div class="text-center bg-white p-3 border-bottom" style="height: 200px; display: flex; align-items: center; justify-content: center;">
+                    <img th:if="${item.imageUrl}" th:src="@{'/uploads/' + ${item.imageUrl}}"
+                         class="img-fluid rounded" style="max-height: 100%; object-fit: contain;" alt="item image">
+                    <div th:unless="${item.imageUrl}" class="text-muted">
+                        <i class="bi bi-image display-4 opacity-25"></i>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <h5 class="card-title text-primary fw-bold" th:text="${item.name}"></h5>
+                    <p class="card-text text-muted small" th:text="${item.description}"></p>
+                    <div class="mb-3">
+                        <span class="badge bg-info text-dark" th:text="${item.type}"></span>
+                        <span class="badge bg-secondary" th:text="'Còn lại: ' + ${item.stock}"></span>
+                    </div>
+                </div>
+                <div class="card-footer bg-white border-top-0 pb-3">
+                    <a th:href="@{/student/borrow(id=${item.id})}" class="btn btn-outline-success w-100 fw-bold">Đăng ký mượn</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{common/fragments :: scripts}"></div>
+</body>
+</html>

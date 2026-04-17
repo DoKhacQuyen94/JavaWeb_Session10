@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{common/fragments :: head('Quản lý thiết bị')}"></head>
+<body class="bg-light">
+    <div class="container-fluid">
+        <div class="row">
+            <div th:replace="~{common/fragments :: admin-sidebar}"></div>
+
+            <main class="col-md-10 ms-sm-auto px-md-4 py-4">
+                <div class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h2><i class="bi bi-laptop me-2"></i>REQ-A01: Quản lý thiết bị</h2>
+                    <a th:href="@{/admin/items/add}" class="btn btn-primary fw-bold"><i class="bi bi-plus-lg me-1"></i> Thêm mới</a>
+                </div>
+
+                <div class="card border-0 shadow-sm mt-4">
+                    <div class="card-body p-0">
+                        <table class="table table-hover mb-0 align-middle">
+                            <thead class="table-light text-uppercase small fw-bold">
+                                <tr>
+                                    <th class="ps-4 py-3 text-center" style="width: 50px;">ID</th>
+                                    <th class="py-3" style="width: 100px;">Hình ảnh</th>
+                                    <th class="py-3">Tên thiết bị</th>
+                                    <th class="py-3">Loại</th>
+                                    <th class="py-3">Tồn kho</th>
+                                    <th class="py-3">Mô tả</th>
+                                    <th class="pe-4 py-3 text-end" style="width: 120px;">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="item : ${items}">
+                                    <td class="ps-4 py-3 text-center fw-bold" th:text="${item.id}"></td>
+                                    <td class="py-2">
+                                        <img th:if="${item.imageUrl}" th:src="@{'/uploads/' + ${item.imageUrl}}"
+                                             class="rounded shadow-sm" style="width: 60px; height: 60px; object-fit: cover;"
+                                             alt="item image">
+                                        <div th:unless="${item.imageUrl}" class="bg-secondary rounded text-white d-flex align-items-center justify-content-center"
+                                             style="width: 60px; height: 60px;">
+                                            <i class="bi bi-image"></i>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 fw-bold text-primary" th:text="${item.name}"></td>
+                                    <td class="py-3">
+                                        <span th:classappend="${item.type.name() == 'EQUIPMENT' ? 'badge bg-info text-dark' : 'badge bg-secondary'}"
+                                              th:text="${item.type}"></span>
+                                    </td>
+                                    <td class="py-3 fw-bold" th:text="${item.stock}"></td>
+                                    <td class="py-3 text-muted small" th:text="${item.description}"></td>
+                                    <td class="pe-4 py-3 text-end">
+                                        <div class="btn-group">
+                                            <a th:href="@{/admin/items/edit/{id}(id=${item.id})}" class="btn btn-sm btn-outline-warning border-0"><i class="bi bi-pencil-square"></i></a>
+                                            <a th:href="@{/admin/items/delete/{id}(id=${item.id})}"
+                                               class="btn btn-sm btn-outline-danger border-0"
+                                               onclick="return confirm('Bạn có chắc chắn muốn xóa thiết bị này không?')"><i class="bi bi-trash"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <div th:replace="~{common/fragments :: scripts}"></div>
+</body>
+</html>
